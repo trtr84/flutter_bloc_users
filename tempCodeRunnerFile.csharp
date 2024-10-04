@@ -1,0 +1,25 @@
+using System;
+
+namespace LabRab_5
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Введите первое число: ");//просим пользователя ввести первое число
+            int a = Convert.ToInt32(Console.ReadLine());//присваиваем переменной a значение (Convert.ToInt32 - преобразует строку в число)
+            
+            Console.WriteLine("Введите второе число: ");//просим пользователя ввести второе число
+            int b = Convert.ToInt32(Console.ReadLine());//присваиваем переменной b значение (Convert.ToInt32 - преобразует строку в число)
+
+            int result; //задаем переменную, которая будет хранить результат вычисления
+
+            if (a == b) //два числа равны?
+                result = (a + b) * 2; //да - считаем удвоенную сумму
+            else 
+                result = (a+b); //нет - считаем обычную сумму
+
+            Console.WriteLine(result); //выводим результат
+        }
+    }
+}

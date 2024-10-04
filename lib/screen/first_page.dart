@@ -20,28 +20,37 @@ class _FirstPageState extends State<FirstPage> {
     context.read<UsersBloc>().add(LoadedUsersEvent());
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.red,
-        ),
-        body: BlocBuilder<UsersBloc, UsersBlocState>(
-          builder: (context, state) {
-            if (state is LoadedListState) {
-              return ListView.builder(
-                itemCount: state.listUsers.length,
-                itemBuilder: (context, index) {
-                  final user = state.listUsers[index];
-                  return ListTile(
-                    title: Text(user.name.first),
-                    subtitle: Text(user.city.city),
-                  );
-                },
-              );
-            }
-            return const Center(child: CircularProgressIndicator());
-          },
-        ));
+      appBar: AppBar(
+        backgroundColor: Colors.red,
+      ),
+      body: BlocBuilder<UsersBloc, UsersBlocState>(
+        builder: (context, state) {
+          final users = state.listUsers;
+          if (users.isNotEmpty) {
+            return ListView.builder(
+              itemCount: state.listUsers.length,
+              itemBuilder: (context, index) {
+                final user = state.listUsers[index];
+                return ListTile(
+                  title: Text(user.name.first),
+                  subtitle: Text(user.city.city),
+                );
+              },
+            );
+          }
+          return const Center(child: CircularProgressIndicator());
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          context.read<UsersBloc>().add(LoadedUsersEvent());
+        },
+        child: Icon(Icons.refresh),
+      ),
+    );
   }
 }
